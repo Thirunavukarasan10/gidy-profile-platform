@@ -91,19 +91,19 @@ const Achievements = ({ achievements = [], profile, skills = [], timeline = [], 
 
   return (
     <div className="card-dashboard animate-fade-in-up">
-      <div className="flex items-center gap-3 mb-4">
-        <div className="p-2 rounded-xl bg-primary/10">
-          <Trophy className="text-primary w-5 h-5" aria-hidden />
+      <div className="flex items-center gap-3 mb-3">
+        <div className="p-1.5 rounded-lg bg-primary/10">
+          <Trophy className="text-primary w-4 h-4" aria-hidden />
         </div>
         <div>
           <h2 className="dashboard-title">Achievements</h2>
-          <p className="dashboard-muted mt-0.5">
-            Level {level} • {achievements.length} of {ALL_BADGES.length} unlocked
+          <p className="dashboard-muted mt-0.5 text-[13px]">
+            Level {level} • {achievements.length}/{ALL_BADGES.length} unlocked
           </p>
         </div>
       </div>
 
-      <div className="mb-6 p-4 rounded-xl bg-gray-50/80 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700">
+      <div className="mb-4 p-3 rounded-xl bg-gray-50/80 dark:bg-gray-800/50 border border-gray-100 dark:border-gray-700">
         <div className="flex justify-between items-center mb-2">
           <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Profile completion</span>
           <span className="text-sm font-semibold text-gray-900 dark:text-white">{percent}%</span>
@@ -114,13 +114,13 @@ const Achievements = ({ achievements = [], profile, skills = [], timeline = [], 
             style={{ width: `${percent}%` }}
           />
         </div>
-        <p className="text-[13px] text-gray-500 dark:text-gray-400 mt-1.5">
-          Level {level}/10 — {level >= 10 ? 'Complete!' : 'Fill more sections to level up'}
+        <p className="text-[12px] text-gray-500 dark:text-gray-400 mt-1">
+          Level {level}/10 — {level >= 10 ? 'Complete!' : 'Fill more to level up'}
         </p>
       </div>
 
       {/* Badges grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         {displayedBadges.map((badge) => {
           const unlocked = unlockedKeys.has(badge.key);
           const unlockRecord = (achievements || []).find((a) => a.achievement_key === badge.key);
@@ -131,7 +131,7 @@ const Achievements = ({ achievements = [], profile, skills = [], timeline = [], 
             <div
               key={badge.key}
               className={`
-                relative p-4 rounded-xl border transition-all duration-300
+                relative p-3 rounded-lg border transition-all duration-300
                 ${unlocked
                   ? `bg-gray-50 dark:bg-gray-800/80 border-gray-200 dark:border-gray-600 ${isNew ? 'ring-2 ring-primary/40 animate-scale-in' : ''}`
                   : 'bg-gray-50/50 dark:bg-gray-800/50 border-gray-100 dark:border-gray-700 opacity-80'
@@ -146,11 +146,11 @@ const Achievements = ({ achievements = [], profile, skills = [], timeline = [], 
               <div className="flex items-start gap-3">
                 <div
                   className={`
-                    p-2 rounded-lg shrink-0 transition-all
+                    p-1.5 rounded-md shrink-0 transition-all
                     ${unlocked ? 'bg-primary text-white' : 'bg-gray-200 dark:bg-gray-600 text-gray-400 dark:text-gray-500'}
                   `}
                 >
-                  <Icon size={20} aria-hidden />
+                  <Icon size={16} aria-hidden />
                 </div>
                 <div className="min-w-0 flex-1">
                   <h3 className={`font-semibold text-sm ${unlocked ? 'text-gray-900 dark:text-white' : 'text-gray-500 dark:text-gray-400'}`}>
@@ -173,15 +173,15 @@ const Achievements = ({ achievements = [], profile, skills = [], timeline = [], 
         <button
           type="button"
           onClick={() => setShowAll(!showAll)}
-          className="w-full mt-4 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/50 rounded-xl transition-colors"
+          className="w-full mt-3 py-2 text-[13px] font-medium text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700/50 rounded-lg transition-colors"
         >
-          {showAll ? 'Show less' : `View all ${ALL_BADGES.length} achievements`}
+          {showAll ? 'Show less' : `View all ${ALL_BADGES.length}`}
         </button>
       )}
 
-      <div className="mt-6 p-4 rounded-xl bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
-        <h4 className="font-semibold text-gray-900 dark:text-white text-sm mb-2">How to unlock more</h4>
-        <ul className="text-[13px] text-gray-600 dark:text-gray-400 space-y-1">
+      <div className="mt-4 p-3 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700">
+        <h4 className="font-semibold text-gray-900 dark:text-white text-[13px] mb-1.5">How to unlock</h4>
+        <ul className="text-[12px] text-gray-600 dark:text-gray-400 space-y-0.5">
           <li>• Complete profile, title, and bio</li>
           <li>• Add skills and get endorsed</li>
           <li>• Add work experience and education</li>

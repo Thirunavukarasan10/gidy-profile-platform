@@ -1,11 +1,17 @@
 import { Mail, MapPin, Edit2, Save, X, Camera } from 'lucide-react';
+import { Github, Linkedin, Twitter, Globe, Link as LinkIcon } from 'lucide-react';
+
+const getSocialIcon = (iconName) => {
+  const icons = { github: Github, linkedin: Linkedin, twitter: Twitter, globe: Globe, default: LinkIcon };
+  return icons[iconName?.toLowerCase()] || icons.default;
+};
 import { useState, useEffect, useRef } from 'react';
 
 const ACCEPT_IMAGE = 'image/jpeg,image/jpg,image/png';
 const MAX_SIZE_MB = 5;
 const AVATAR_SIZE = 132;
 
-function ProfileHeader({ profile, onUpdate, isEditing, setIsEditing }) {
+function ProfileHeader({ profile, onUpdate, isEditing, setIsEditing, socialLinks = [] }) {
   const [formData, setFormData] = useState({
     first_name: '',
     last_name: '',
@@ -151,13 +157,13 @@ function ProfileHeader({ profile, onUpdate, isEditing, setIsEditing }) {
 
   return (
     <>
-      <div className="card-dashboard-full animate-fade-in-up">
-        <div className="flex flex-col sm:flex-row sm:items-center gap-6">
+      <div className="card-dashboard-full animate-fade-in-up p-6">
+        <div className="flex flex-col sm:flex-row sm:items-start gap-5">
           <div className="flex-shrink-0">
             <button
               type="button"
               onClick={openPhotoEditor}
-              className="relative block w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-gray-200 dark:border-gray-600 transition-shadow hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary/40 focus:ring-offset-2 group"
+              className="relative block w-[120px] h-[120px] rounded-full overflow-hidden border-2 border-[#E5E7EB] dark:border-gray-600 transition-shadow hover:shadow-md focus:outline-none focus:ring-2 focus:ring-primary/40 focus:ring-offset-2 group"
               aria-label="Change profile photo"
             >
               <img src={avatarSrc} alt={`${profile.first_name} ${profile.last_name}`} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
@@ -167,22 +173,14 @@ function ProfileHeader({ profile, onUpdate, isEditing, setIsEditing }) {
             </button>
           </div>
           <div className="flex-grow min-w-0">
-            <div className="flex flex-wrap items-start justify-between gap-3 mb-2">
-              <div>
-                <h1 className="text-[32px] font-bold text-gray-900 dark:text-white leading-tight tracking-tight">
-                  {profile.first_name} {profile.last_name}
-                </h1>
-                {profile.title && <p className="dashboard-muted mt-1">{profile.title}</p>}
-              </div>
-              <button type="button" onClick={() => setIsEditing(true)} className="btn-secondary-dash flex items-center gap-2 flex-shrink-0">
-                <Edit2 size={16} />
-                Edit profile
-              </button>
-            </div>
+            <h1 className="text-[28px] font-bold text-[#111827] dark:text-white leading-tight tracking-tight">
+              {profile.first_name} {profile.last_name}
+            </h1>
+            {profile.title && <p className="dashboard-muted mt-0.5 text-[14px]">{profile.title}</p>}
             {profile.bio && String(profile.bio).trim() && (
-              <p className="dashboard-body text-[15px] mt-2 line-clamp-2">{profile.bio}</p>
+              <p className="dashboard-body text-[14px] mt-2 line-clamp-2">{profile.bio}</p>
             )}
-            <div className="flex flex-wrap gap-4 mt-3 dashboard-muted text-[14px]">
+            <div className="flex flex-wrap items-center gap-3 mt-2 dashboard-muted text-[14px]">
               {profile.location && (
                 <span className="flex items-center gap-1.5">
                   <MapPin size={14} aria-hidden />
@@ -196,6 +194,25 @@ function ProfileHeader({ profile, onUpdate, isEditing, setIsEditing }) {
                 </span>
               )}
             </div>
+            {socialLinks.length > 0 && (
+              <div className="flex flex-wrap gap-2 mt-3">
+                {socialLinks.map((link) => {
+                  const Icon = getSocialIcon(link.icon);
+                  return (
+                    <a
+                      key={link.id}
+                      href={link.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 text-[#6B7280] hover:text-[#2563EB] dark:text-gray-400 dark:hover:text-primary transition-colors rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800/50"
+                      aria-label={link.platform}
+                    >
+                      <Icon size={18} strokeWidth={1.5} />
+                    </a>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       </div>

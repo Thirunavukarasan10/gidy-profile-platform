@@ -62,7 +62,7 @@ export default {
         muted: '#6B7280',
       },
       maxWidth: {
-        'dashboard': '1200px',
+        'dashboard': '1100px',
       },
       borderRadius: {
         'card': '16px',

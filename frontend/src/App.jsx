@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { profileApi } from './utils/api';
 import NavBar from './components/NavBar';
 import ProfileHeader from './components/ProfileHeader';
@@ -12,7 +12,8 @@ import ATSAnalyzer from './components/ATSAnalyzer';
 import ProfileStrength from './components/Profilestrength';
 import Timeline from './components/Timeline';
 import SocialLinks from './components/SocialLinks';
-import ThemeToggle from './components/ThemeToggle';
+import Footer from './components/Footer';
+import Toast from './components/Toast';
 import Loading from './components/Loading';
 import { ThemeProvider } from './context/ThemeContext';
 
@@ -28,6 +29,15 @@ function AppContent() {
   const [resume, setResume] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
+  const [toast, setToast] = useState({ visible: false, message: '' });
+
+  const showToast = useCallback((message) => {
+    setToast({ visible: true, message });
+  }, []);
+
+  const hideToast = useCallback(() => {
+    setToast((p) => ({ ...p, visible: false }));
+  }, []);
 
   useEffect(() => {
     loadProfile();
@@ -58,6 +68,7 @@ function AppContent() {
       const updated = await profileApi.updateProfile(1, updatedData);
       setProfile(updated);
       await loadProfile();
+      showToast('Profile saved successfully');
     } catch (err) {
       alert("Failed to update profile");
     }
@@ -71,6 +82,7 @@ function AppContent() {
     try {
       const updated = await profileApi.updateProfile(1, { bio: trimmedBio });
       setProfile((prev) => (prev ? { ...prev, ...updated } : prev));
+      showToast('Bio updated');
     } catch (err) {
       console.error('Failed to save bio:', err);
       alert("Bio updated in UI but failed to save to server");
@@ -83,8 +95,8 @@ function AppContent() {
 
   if (!profile) {
     return (
-      <div className="min-h-screen bg-[#F8F9FB] dark:bg-gray-900">
-        <NavBar profile={{ first_name: 'Portfolio', last_name: '' }} />
+      <div className="min-h-screen bg-[#F9FAFB] dark:bg-gray-900">
+        <NavBar />
         <div className="max-w-dashboard mx-auto px-6 py-12 flex flex-col items-center justify-center">
           <p className="dashboard-muted mb-4 text-center">
             Failed to load profile. Make sure the backend is running on port 5000.
@@ -98,35 +110,24 @@ function AppContent() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F8F9FB] dark:bg-gray-900 transition-colors overflow-x-hidden">
-      <NavBar profile={profile} />
+    <div className="min-h-screen bg-[#F9FAFB] dark:bg-gray-900 transition-colors overflow-x-hidden">
+      <NavBar isEditing={isEditing} onEditToggle={() => setIsEditing(!isEditing)} />
 
-      <main className="max-w-dashboard mx-auto px-6 py-6">
-        {/* Edit mode bar */}
-        <div className="flex justify-end mb-6">
-          <button
-            type="button"
-            onClick={() => setIsEditing(!isEditing)}
-            className={isEditing ? 'btn-primary-dash' : 'btn-secondary-dash'}
-            aria-label={isEditing ? 'Switch to view mode' : 'Switch to edit mode'}
-          >
-            {isEditing ? 'View mode' : 'Edit mode'}
-          </button>
-        </div>
-
-        {/* Hero / Profile – full width card */}
-        <section className="mb-6">
+      <main className="max-w-dashboard mx-auto px-6 py-8 animate-fade-in-up">
+        {/* Hero / Profile card */}
+        <section className="mb-8">
           <ProfileHeader
             profile={profile}
             onUpdate={handleUpdateProfile}
             isEditing={isEditing}
             setIsEditing={setIsEditing}
+            socialLinks={socialLinks}
           />
         </section>
 
-        {/* Main grid: 12 cols, 24px gap. Left 8, Right 4 */}
+        {/* Main grid: Left 8, Right 4 */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          {/* LEFT COLUMN – 8 cols */}
+          {/* LEFT COLUMN – About, Skills, Experience */}
           <div className="lg:col-span-8 space-y-6 flex flex-col">
             {profile.bio != null && String(profile.bio).trim() !== '' && (
               <section className="card-dashboard animate-fade-in-up">
@@ -160,7 +161,7 @@ function AppContent() {
             </section>
           </div>
 
-          {/* RIGHT COLUMN – 4 cols */}
+          {/* RIGHT COLUMN – Education, Certificates, Resume */}
           <div className="lg:col-span-4 space-y-6 flex flex-col">
             <section className="animate-fade-in-up">
               <CareerVision
@@ -194,6 +195,14 @@ function AppContent() {
             </section>
 
             <section className="animate-fade-in-up">
+              <SocialLinks
+                socialLinks={socialLinks}
+                setSocialLinks={setSocialLinks}
+                isEditing={isEditing}
+              />
+            </section>
+
+            <section className="animate-fade-in-up">
               <ProfileStrength
                 profile={profile}
                 skills={skills}
@@ -205,20 +214,10 @@ function AppContent() {
           </div>
         </div>
 
-        {/* Social Links – full width */}
-        <section className="mt-6 animate-fade-in-up">
-          <SocialLinks
-            socialLinks={socialLinks}
-            setSocialLinks={setSocialLinks}
-            isEditing={isEditing}
-          />
-        </section>
-
-        <footer className="mt-10 pt-6 border-t border-gray-200 dark:border-gray-800 text-center dashboard-muted text-[13px]">
-          <p className="font-medium text-gray-700 dark:text-gray-300">Portfolio Dashboard</p>
-          <p className="mt-1">React · Node.js · PostgreSQL</p>
-        </footer>
+        <Footer />
       </main>
+
+      <Toast message={toast.message} visible={toast.visible} onClose={hideToast} />
     </div>
   );
 }

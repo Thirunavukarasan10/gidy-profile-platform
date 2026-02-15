@@ -1,25 +1,9 @@
 const Loading = () => {
   return (
-    <div className="min-h-screen bg-[#F8F9FB] dark:bg-gray-900 flex flex-col items-center justify-center p-6">
-      <div className="w-full max-w-dashboard mx-auto px-6 space-y-6 animate-fade-in">
-        <div className="flex gap-6">
-          <div className="w-24 h-24 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse shrink-0" />
-          <div className="flex-1 space-y-3">
-            <div className="h-8 w-48 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse" />
-            <div className="h-4 w-64 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
-          </div>
-        </div>
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="lg:col-span-8 space-y-6">
-            <div className="h-40 bg-white dark:bg-gray-800 rounded-[16px] shadow-sm animate-pulse" />
-            <div className="h-48 bg-white dark:bg-gray-800 rounded-[16px] shadow-sm animate-pulse" />
-          </div>
-          <div className="lg:col-span-4 space-y-6">
-            <div className="h-36 bg-white dark:bg-gray-800 rounded-[16px] shadow-sm animate-pulse" />
-            <div className="h-44 bg-white dark:bg-gray-800 rounded-[16px] shadow-sm animate-pulse" />
-          </div>
-        </div>
-        <p className="text-center dashboard-muted">Loading…</p>
+    <div className="min-h-screen bg-[#F9FAFB] dark:bg-gray-900 flex flex-col items-center justify-center p-6">
+      <div className="flex flex-col items-center gap-6 animate-fade-in">
+        <div className="w-10 h-10 border-2 border-[#E5E7EB] dark:border-gray-700 border-t-[#2563EB] dark:border-t-primary rounded-full animate-spin" />
+        <p className="text-[14px] text-[#6B7280] dark:text-gray-400">Loading profile…</p>
       </div>
     </div>
   );

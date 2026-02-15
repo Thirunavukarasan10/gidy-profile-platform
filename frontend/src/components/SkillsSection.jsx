@@ -313,17 +313,16 @@ const SkillsSection = ({ skills, setSkills, isEditing }) => {
         {skills.length === 0 ? (
           <p className="text-gray-500 dark:text-gray-400">No skills added yet.</p>
         ) : (
-          skills.map((skill, index) => (
+          skills.map((skill) => (
             <div
               key={skill.id}
-              className="flex items-center gap-3 px-3 py-2 rounded-full border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800/50 transition-shadow hover:shadow-sm group"
+              className="flex items-center gap-2 px-2.5 py-1.5 rounded-full text-[13px] border border-[#E5E7EB] dark:border-gray-600 bg-white dark:bg-gray-800/50 hover:border-gray-300 dark:hover:border-gray-500 transition-colors group"
             >
-              <span className="font-medium">{skill.skill_name}</span>
-              
+              <span className="font-medium text-[#111827] dark:text-gray-200">{skill.skill_name}</span>
               <button
                 onClick={() => handleEndorse(skill.id)}
                 disabled={endorsedSkills.has(skill.id) || endorsingSkills.has(skill.id)}
-                className={`flex items-center gap-1 px-2.5 py-1 rounded-md transition-all duration-200 ${
+                className={`flex items-center gap-1 px-2 py-0.5 rounded-full text-[12px] transition-all duration-200 ${
                   endorsedSkills.has(skill.id)
                     ? 'bg-white/60 dark:bg-black/20 cursor-not-allowed'
                     : 'bg-white/90 dark:bg-black/30 hover:bg-white dark:hover:bg-black/40 cursor-pointer shadow-sm'
