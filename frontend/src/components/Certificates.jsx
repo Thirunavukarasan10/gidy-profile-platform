@@ -85,9 +85,9 @@ const Certificates = ({ certificates, profileId, isEditing, onUpdate }) => {
     setEditingId(null);
   };
 
-  const inputClass = "w-full px-3 py-2 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-linkedin focus:border-transparent text-neutral-900 dark:text-white";
-  const btnSecondary = "px-4 py-2 border border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-200 rounded-full hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors flex items-center gap-2 font-medium";
-  const btnPrimary = "px-4 py-2 bg-linkedin hover:bg-linkedin-hover text-white rounded-full transition-colors flex items-center gap-2 font-medium";
+  const inputClass = "input-dashboard";
+  const btnSecondary = "btn-secondary-dash flex items-center gap-2";
+  const btnPrimary = "btn-primary-dash flex items-center gap-2";
 
   const sortedCertificates = [...certificates].sort((a, b) => {
     const dateA = new Date(a.issue_date || 0);
@@ -102,11 +102,11 @@ const Certificates = ({ certificates, profileId, isEditing, onUpdate }) => {
   };
 
   return (
-    <div className="bg-white dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 shadow-sm p-6">
-      <div className="flex justify-between items-center mb-6">
+    <div className="card-dashboard">
+      <div className="flex justify-between items-center mb-4">
         <div className="flex items-center gap-2">
-          <Award className="text-linkedin" size={24} />
-          <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">Certificates</h2>
+          <Award className="text-primary" size={20} />
+          <h2 className="dashboard-title">Certificates</h2>
         </div>
         {isEditing && !isAdding && !editingId && (
           <button onClick={handleAdd} className={btnPrimary}>
@@ -127,7 +127,7 @@ const Certificates = ({ certificates, profileId, isEditing, onUpdate }) => {
                 <X size={16} />
                 Cancel
               </button>
-              <button onClick={handleSave} className="text-sm px-3 py-1.5 bg-linkedin hover:bg-linkedin-hover text-white rounded-full transition-colors flex items-center gap-1">
+              <button onClick={handleSave} className="text-sm px-3 py-1.5 btn-primary-dash flex items-center gap-1">
                 <Save size={16} />
                 Save
               </button>
@@ -236,7 +236,7 @@ const Certificates = ({ certificates, profileId, isEditing, onUpdate }) => {
           {sortedCertificates.map((cert) => (
             <div
               key={cert.id}
-              className="border border-neutral-200 dark:border-neutral-700 rounded-lg p-4 hover:border-linkedin/50 transition-colors"
+              className="border border-gray-200 dark:border-gray-700 rounded-xl p-4 hover:border-gray-400 dark:hover:border-gray-500 transition-colors"
             >
               <div className="flex justify-between items-start mb-2">
                 <div className="flex-1">
@@ -251,13 +251,13 @@ const Certificates = ({ certificates, profileId, isEditing, onUpdate }) => {
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleEdit(cert)}
-                      className="p-2 text-neutral-600 dark:text-neutral-400 hover:text-linkedin hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-full transition-colors"
+                      className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
                     >
                       <Edit2 size={16} />
                     </button>
                     <button
                       onClick={() => handleDelete(cert.id)}
-                      className="p-2 text-neutral-600 dark:text-neutral-400 hover:text-red-600 hover:bg-neutral-100 dark:hover:bg-neutral-700 rounded-full transition-colors"
+                      className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
                     >
                       <Trash2 size={16} />
                     </button>
@@ -284,7 +284,7 @@ const Certificates = ({ certificates, profileId, isEditing, onUpdate }) => {
                     href={cert.credential_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-linkedin hover:underline flex items-center gap-1"
+                    className="text-sm text-gray-700 dark:text-gray-200 hover:underline flex items-center gap-1"
                   >
                     View Credential
                     <ExternalLink size={14} />
@@ -295,7 +295,7 @@ const Certificates = ({ certificates, profileId, isEditing, onUpdate }) => {
                     href={cert.file_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm text-linkedin hover:underline flex items-center gap-1"
+                    className="text-sm text-gray-700 dark:text-gray-200 hover:underline flex items-center gap-1"
                   >
                     View Certificate
                     <ExternalLink size={14} />

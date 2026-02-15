@@ -255,27 +255,18 @@ const SkillsSection = ({ skills, setSkills, isEditing }) => {
     }
   };
 
-  const getSkillColor = (index) => {
-    const colors = [
-      'bg-neutral-100 text-neutral-800 border-neutral-300 dark:bg-neutral-700/50 dark:text-neutral-200 dark:border-neutral-600',
-      'bg-neutral-100 text-neutral-800 border-neutral-300 dark:bg-neutral-700/50 dark:text-neutral-200 dark:border-neutral-600',
-    ];
-    return colors[index % colors.length];
-  };
-
   return (
-    <div className="bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 shadow-sm p-6">
-      <div className="flex justify-between items-center mb-6">
+    <div className="card-dashboard h-full flex flex-col">
+      <div className="flex justify-between items-center mb-4">
         <div>
-          <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-1">Skills & Expertise</h2>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
-            Click 👍 to endorse skills you recognize
-          </p>
+          <h2 className="dashboard-title">Skills & Expertise</h2>
+          <p className="dashboard-muted mt-0.5">Endorse skills you recognize</p>
         </div>
         {isEditing && (
           <button
+            type="button"
             onClick={() => setShowAddForm(!showAddForm)}
-            className="px-4 py-2 bg-linkedin text-white rounded-full hover:bg-linkedin-hover transition-colors flex items-center gap-2 font-medium"
+            className="btn-primary-dash flex items-center gap-2"
           >
             {showAddForm ? <X size={18} /> : <Plus size={18} />}
             {showAddForm ? 'Cancel' : 'Add Skill'}
@@ -284,33 +275,33 @@ const SkillsSection = ({ skills, setSkills, isEditing }) => {
       </div>
 
       {showAddForm && (
-        <form onSubmit={handleAddSkill} className="mb-6 p-4 bg-neutral-50 dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700">
+        <form onSubmit={handleAddSkill} className="mb-6 p-4 bg-gray-50/80 dark:bg-gray-800/50 rounded-xl border border-gray-100 dark:border-gray-700">
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">Skill Name</label>
+              <label className="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Skill name</label>
               <input
                 type="text"
                 value={newSkill.skill_name}
                 onChange={(e) => setNewSkill({ ...newSkill, skill_name: e.target.value })}
-                className="w-full px-3 py-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-linkedin focus:border-transparent text-neutral-900 dark:text-white"
+                className="input-dashboard"
                 placeholder="e.g., React"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">Category</label>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Category</label>
               <input
                 type="text"
                 value={newSkill.category}
                 onChange={(e) => setNewSkill({ ...newSkill, category: e.target.value })}
-                className="w-full px-3 py-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-linkedin focus:border-transparent text-neutral-900 dark:text-white"
+                className="input-dashboard"
                 placeholder="e.g., Frontend"
               />
             </div>
           </div>
           <button
             type="submit"
-            className="mt-4 px-4 py-2 bg-linkedin text-white rounded-full hover:bg-linkedin-hover transition-colors flex items-center gap-2 font-medium"
+            className="mt-4 btn-primary-dash flex items-center gap-2"
           >
             <Save size={18} />
             Add Skill
@@ -320,12 +311,12 @@ const SkillsSection = ({ skills, setSkills, isEditing }) => {
 
       <div className="flex flex-wrap gap-3">
         {skills.length === 0 ? (
-          <p className="text-blue-500 dark:text-blue-400">No skills added yet.</p>
+          <p className="text-gray-500 dark:text-gray-400">No skills added yet.</p>
         ) : (
           skills.map((skill, index) => (
             <div
               key={skill.id}
-              className={`flex items-center gap-3 px-4 py-2.5 rounded-lg border ${getSkillColor(index)} transition-all duration-200 hover:shadow-md group`}
+              className="flex items-center gap-3 px-3 py-2 rounded-full border border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-800/50 transition-shadow hover:shadow-sm group"
             >
               <span className="font-medium">{skill.skill_name}</span>
               
@@ -349,9 +340,9 @@ const SkillsSection = ({ skills, setSkills, isEditing }) => {
               {isEditing && (
                 <button
                   onClick={() => handleDeleteSkill(skill.id)}
-                  className="ml-1 p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-red-100 dark:hover:bg-red-900/30 rounded"
+                  className="ml-1 p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-gray-200 dark:hover:bg-gray-700 rounded"
                 >
-                  <X size={16} className="text-red-600 dark:text-red-400" />
+                  <X size={16} className="text-gray-600 dark:text-gray-400" />
                 </button>
               )}
             </div>

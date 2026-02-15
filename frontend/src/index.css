@@ -2,24 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Scrollbar styling */
+/* Portfolio dashboard – Linear / Notion style */
+@layer base {
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 15px;
+    @apply text-gray-900 dark:text-gray-100 antialiased;
+  }
+}
+
+@layer components {
+  /* Card: white, subtle shadow, 16px radius, 24px padding */
+  .card-dashboard {
+    @apply bg-white dark:bg-gray-800 rounded-[16px] shadow-sm border border-gray-100 dark:border-gray-700/50 p-6;
+  }
+  .card-dashboard-full {
+    @apply bg-white dark:bg-gray-800 rounded-[16px] shadow-sm border border-gray-100 dark:border-gray-700/50 p-6 w-full;
+  }
+  /* Section title: 20px semi-bold */
+  .dashboard-title {
+    @apply text-[20px] font-semibold text-gray-900 dark:text-white;
+  }
+  /* Body & muted */
+  .dashboard-body {
+    @apply text-[15px] text-gray-700 dark:text-gray-300 leading-relaxed;
+  }
+  .dashboard-muted {
+    @apply text-[14px] text-[#6B7280] dark:text-gray-400;
+  }
+  /* Primary button: solid blue */
+  .btn-primary-dash {
+    @apply px-4 py-2.5 bg-primary hover:bg-primary-hover text-white rounded-xl font-medium transition-colors duration-200 active:scale-[0.98];
+  }
+  /* Secondary: outline */
+  .btn-secondary-dash {
+    @apply px-4 py-2.5 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 rounded-xl font-medium hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-200 active:scale-[0.98];
+  }
+  .input-dashboard {
+    @apply w-full px-3 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-xl text-[15px] text-gray-900 dark:text-white focus:ring-2 focus:ring-primary/30 focus:border-primary;
+  }
+  /* Icon accent (single blue) */
+  .icon-accent {
+    @apply text-primary;
+  }
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
+  height: 6px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #f3f2ef;
+  background: #f1f5f9;
 }
-
+.dark ::-webkit-scrollbar-track {
+  background: #1e293b;
+}
 ::-webkit-scrollbar-thumb {
-  background: #0A66C2;
+  background: #cbd5e1;
   border-radius: 9999px;
 }
-
-::-webkit-scrollbar-thumb:hover {
-  background: #004182;
-}
-
-body {
-  font-family: system-ui, -apple-system, sans-serif;
+.dark ::-webkit-scrollbar-thumb {
+  background: #475569;
 }

@@ -382,16 +382,17 @@ const Timeline = ({ timeline, setTimeline, isEditing }) => {
   };
 
   return (
-    <div className="bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 shadow-sm p-6">
-      <div className="flex justify-between items-center mb-6">
+    <div className="card-dashboard">
+      <div className="flex justify-between items-center mb-4">
         <div>
-          <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-1">Work Experience</h2>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">Professional journey timeline</p>
+          <h2 className="dashboard-title">Work experience</h2>
+          <p className="dashboard-muted mt-0.5">Professional journey</p>
         </div>
         {isEditing && !showAddForm && (
           <button
+            type="button"
             onClick={() => setShowAddForm(true)}
-            className="px-4 py-2 bg-linkedin hover:bg-linkedin-hover text-white rounded-full transition-colors flex items-center gap-2 font-medium"
+            className="btn-primary-dash flex items-center gap-2"
           >
             <Plus size={18} />
             Add Experience
@@ -400,8 +401,8 @@ const Timeline = ({ timeline, setTimeline, isEditing }) => {
       </div>
 
       {showAddForm && (
-        <form onSubmit={handleSubmit} className="mb-6 p-4 bg-neutral-50 dark:bg-neutral-900 rounded-lg border border-neutral-200 dark:border-neutral-700">
-          <h3 className="font-semibold text-neutral-900 dark:text-white mb-4">
+        <form onSubmit={handleSubmit} className="mb-6 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-700">
+          <h3 className="font-semibold text-gray-900 dark:text-white mb-4">
             {editingItem ? 'Edit Experience' : 'Add New Experience'}
           </h3>
           
@@ -412,7 +413,7 @@ const Timeline = ({ timeline, setTimeline, isEditing }) => {
                 type="text"
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                className="w-full px-3 py-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-linkedin focus:border-transparent text-neutral-900 dark:text-white"
+                className="input-dashboard"
                 placeholder="e.g., Senior Developer"
                 required
               />
@@ -424,7 +425,7 @@ const Timeline = ({ timeline, setTimeline, isEditing }) => {
                 type="text"
                 value={formData.company}
                 onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                className="w-full px-3 py-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-linkedin focus:border-transparent text-neutral-900 dark:text-white"
+                className="input-dashboard"
                 placeholder="e.g., Tech Corp"
               />
             </div>
@@ -434,7 +435,7 @@ const Timeline = ({ timeline, setTimeline, isEditing }) => {
               <textarea
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                className="w-full px-3 py-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-linkedin focus:border-transparent text-neutral-900 dark:text-white"
+                className="input-dashboard"
                 rows="3"
                 placeholder="Describe your role and achievements..."
               />
@@ -447,7 +448,7 @@ const Timeline = ({ timeline, setTimeline, isEditing }) => {
                   type="date"
                   value={formData.start_date}
                   onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
-                  className="w-full px-3 py-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-linkedin focus:border-transparent text-neutral-900 dark:text-white"
+                  className="input-dashboard"
                 />
               </div>
 
@@ -457,7 +458,7 @@ const Timeline = ({ timeline, setTimeline, isEditing }) => {
                   type="date"
                   value={formData.end_date}
                   onChange={(e) => setFormData({ ...formData, end_date: e.target.value })}
-                  className="w-full px-3 py-2 bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-linkedin focus:border-transparent text-neutral-900 dark:text-white disabled:opacity-50"
+                  className="input-dashboard disabled:opacity-50"
                   disabled={formData.is_current}
                 />
               </div>
@@ -476,7 +477,7 @@ const Timeline = ({ timeline, setTimeline, isEditing }) => {
             <div className="flex gap-2">
               <button
                 type="submit"
-                className="px-4 py-2 bg-linkedin hover:bg-linkedin-hover text-white rounded-full transition-colors flex items-center gap-2 font-medium"
+                className="btn-primary-dash flex items-center gap-2"
               >
                 <Save size={18} />
                 {editingItem ? 'Update' : 'Add'}
@@ -484,7 +485,7 @@ const Timeline = ({ timeline, setTimeline, isEditing }) => {
               <button
                 type="button"
                 onClick={resetForm}
-                className="px-4 py-2 border border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 rounded-lg hover:bg-neutral-50 dark:hover:bg-neutral-700 transition-colors flex items-center gap-2 font-medium"
+                className="btn-secondary-dash flex items-center gap-2"
               >
                 <X size={18} />
                 Cancel
@@ -507,7 +508,7 @@ const Timeline = ({ timeline, setTimeline, isEditing }) => {
                 {/* Timeline dot */}
                 <div className="absolute left-6 top-2 w-4 h-4 rounded-full bg-neutral-600 dark:bg-neutral-400 ring-4 ring-white dark:ring-neutral-800 transition-all duration-200 group-hover:w-5 group-hover:h-5 group-hover:left-[22px] group-hover:top-[6px]" />
 
-                <div className="bg-neutral-50 dark:bg-neutral-900 p-5 rounded-lg border border-neutral-200 dark:border-neutral-700 hover:border-neutral-300 dark:hover:border-neutral-600 transition-all duration-200">
+                <div className="bg-gray-50 dark:bg-gray-800/50 p-5 rounded-xl border border-gray-200 dark:border-gray-700 hover:shadow-md transition-all duration-200">
                   <div className="flex justify-between items-start mb-2">
                     <div className="flex-grow">
                       <h3 className="text-lg font-bold text-neutral-900 dark:text-white">{item.title}</h3>
@@ -528,9 +529,9 @@ const Timeline = ({ timeline, setTimeline, isEditing }) => {
                         </button>
                         <button
                           onClick={() => handleDelete(item.id)}
-                          className="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg transition-colors"
+                          className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
                         >
-                          <Trash2 size={16} className="text-red-600 dark:text-red-400" />
+                          <Trash2 size={16} className="text-gray-600 dark:text-gray-400" />
                         </button>
                       </div>
                     )}

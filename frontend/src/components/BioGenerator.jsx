@@ -188,8 +188,9 @@ const BioGenerator = ({ skills, onBioGenerated }) => {
   if (!showGenerator) {
     return (
       <button
+        type="button"
         onClick={() => setShowGenerator(true)}
-        className="w-full py-3 px-4 bg-linkedin hover:bg-linkedin-hover text-white font-medium rounded-full transition-colors flex items-center justify-center gap-2 shadow-sm"
+        className="btn-primary-dash w-full flex items-center justify-center gap-2"
       >
         <Sparkles size={20} />
         Generate AI Bio
@@ -198,15 +199,15 @@ const BioGenerator = ({ skills, onBioGenerated }) => {
   }
 
   return (
-    <div className="bg-white dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 shadow-sm p-6">
+    <div className="card-dashboard">
       <div className="flex items-center gap-2 mb-4">
-        <div className="p-2 bg-linkedin rounded-lg">
-          <Wand2 size={20} className="text-white" />
+        <div className="p-2 rounded-xl bg-primary/10">
+          <Wand2 size={20} className="text-primary" />
         </div>
-        <h3 className="text-xl font-bold text-neutral-900 dark:text-white">AI Bio Generator</h3>
+        <h3 className="dashboard-title">AI Bio Generator</h3>
       </div>
 
-      <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-4">
+      <p className="dashboard-muted mb-4">
         Let AI craft a professional bio based on your skills and interests
       </p>
 
@@ -217,7 +218,7 @@ const BioGenerator = ({ skills, onBioGenerated }) => {
             type="text"
             value={formData.title}
             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-            className="w-full px-3 py-2 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-linkedin focus:border-transparent text-neutral-900 dark:text-white"
+            className="input-dashboard"
             placeholder="e.g., Full Stack Developer"
           />
         </div>
@@ -228,7 +229,7 @@ const BioGenerator = ({ skills, onBioGenerated }) => {
             type="text"
             value={formData.interests}
             onChange={(e) => setFormData({ ...formData, interests: e.target.value })}
-            className="w-full px-3 py-2 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-linkedin focus:border-transparent text-neutral-900 dark:text-white"
+            className="input-dashboard"
             placeholder="e.g., open source, hiking, photography"
           />
         </div>
@@ -236,7 +237,7 @@ const BioGenerator = ({ skills, onBioGenerated }) => {
         <button
           onClick={handleGenerate}
           disabled={isGenerating}
-          className="w-full px-4 py-2 bg-linkedin hover:bg-linkedin-hover text-white rounded-full transition-colors flex items-center justify-center gap-2 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+          className="btn-primary-dash w-full flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isGenerating ? (
             <>
@@ -252,7 +253,7 @@ const BioGenerator = ({ skills, onBioGenerated }) => {
         </button>
 
         {generatedBio && (
-            <div className="mt-4 p-4 bg-neutral-50 dark:bg-neutral-800/80 rounded-lg border border-neutral-200 dark:border-neutral-600">
+            <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-gray-200 dark:border-gray-700">
             <p className="text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">
               Generated Bio:
             </p>
@@ -263,14 +264,14 @@ const BioGenerator = ({ skills, onBioGenerated }) => {
               <button
                 type="button"
                 onClick={handleUseBio}
-                className="flex-1 px-4 py-2 bg-linkedin hover:bg-linkedin-hover text-white rounded-full transition-colors font-medium"
+                className="btn-primary-dash flex-1"
               >
                 Use This Bio
               </button>
               <button
                 type="button"
                 onClick={handleGenerate}
-                className="px-4 py-2 border border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-300 rounded-full hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors font-medium"
+                className="btn-secondary-dash"
               >
                 Regenerate
               </button>
@@ -279,8 +280,9 @@ const BioGenerator = ({ skills, onBioGenerated }) => {
         )}
 
         <button
+          type="button"
           onClick={() => setShowGenerator(false)}
-          className="w-full px-4 py-2 border border-slate-300 dark:border-slate-600 text-slate-700 dark:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors font-medium"
+          className="btn-secondary-dash w-full"
         >
           Close Generator
         </button>

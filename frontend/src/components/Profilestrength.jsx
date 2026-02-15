@@ -188,12 +188,12 @@ const ProfileStrength = ({ profile, skills, timeline, socialLinks, achievements 
     } else if (score >= 70) {
       level = 'Advanced';
       levelColor = 'text-neutral-800 dark:text-neutral-200';
-      progressColor = 'bg-linkedin';
+      progressColor = 'bg-gray-600 dark:bg-gray-400';
       insights.push({ type: 'positive', text: 'Strong profile. A few improvements will make you stand out more.' });
     } else if (score >= 50) {
       level = 'Intermediate';
       levelColor = 'text-neutral-700 dark:text-neutral-300';
-      progressColor = 'bg-linkedin';
+      progressColor = 'bg-gray-600 dark:bg-gray-400';
       insights.push({ type: 'neutral', text: 'Good foundation. Focus on high-impact items below.' });
     } else {
       insights.push({ type: 'neutral', text: 'Complete the critical items below to improve recruiter discovery.' });
@@ -233,20 +233,20 @@ const ProfileStrength = ({ profile, skills, timeline, socialLinks, achievements 
   };
 
   return (
-    <div className="bg-white dark:bg-neutral-800 rounded-xl border border-neutral-200 dark:border-neutral-700 shadow-sm overflow-hidden">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-neutral-50 to-neutral-100 dark:from-neutral-800 dark:to-neutral-900 p-6 border-b border-neutral-200 dark:border-neutral-700">
+    <div className="card-dashboard overflow-hidden">
+      <div className="bg-gray-50/80 dark:bg-gray-800/50 p-6 border-b border-gray-100 dark:border-gray-700">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-white dark:bg-neutral-700 rounded-lg shadow-sm">
-              <Target size={24} className="text-neutral-700 dark:text-neutral-300" />
+            <div className="p-2 rounded-xl bg-primary/10">
+              <Target size={20} className="text-primary" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-neutral-900 dark:text-white">Profile Strength</h2>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400">Recruiter Readiness Score</p>
+              <h2 className="dashboard-title">Profile Strength</h2>
+              <p className="dashboard-muted mt-0.5">Recruiter readiness score</p>
             </div>
           </div>
           <button
+            type="button"
             onClick={() => setShowDetails(!showDetails)}
             className="text-sm font-medium text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors"
           >
@@ -266,9 +266,9 @@ const ProfileStrength = ({ profile, skills, timeline, socialLinks, achievements 
         </div>
 
         {/* Progress Bar */}
-        <div className="w-full bg-neutral-200 dark:bg-neutral-700 rounded-full h-3 overflow-hidden">
+        <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 overflow-hidden">
           <div
-            className={`h-full ${strength.progressColor} transition-all duration-1000 ease-out rounded-full`}
+            className="h-full bg-primary transition-all duration-1000 ease-out rounded-full"
             style={{ width: `${strength.score}%` }}
           />
         </div>

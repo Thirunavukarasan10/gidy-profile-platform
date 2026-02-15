@@ -33,9 +33,9 @@ const CareerVision = ({ careerVision, profileId, isEditing, onUpdate }) => {
     setIsEditingVision(false);
   };
 
-  const inputClass = "w-full px-3 py-2 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-600 rounded-lg focus:ring-2 focus:ring-linkedin focus:border-transparent text-neutral-900 dark:text-white";
-  const btnSecondary = "px-4 py-2 border border-neutral-300 dark:border-neutral-600 text-neutral-700 dark:text-neutral-200 rounded-full hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors flex items-center gap-2 font-medium";
-  const btnPrimary = "px-4 py-2 bg-linkedin hover:bg-linkedin-hover text-white rounded-full transition-colors flex items-center gap-2 font-medium";
+  const inputClass = "input-dashboard";
+  const btnSecondary = "btn-secondary-dash flex items-center gap-2";
+  const btnPrimary = "btn-primary-dash flex items-center gap-2";
 
   if (!careerVision && !isEditing) {
     return null;
@@ -43,11 +43,11 @@ const CareerVision = ({ careerVision, profileId, isEditing, onUpdate }) => {
 
   if (isEditingVision || (!careerVision && isEditing)) {
     return (
-      <div className="bg-white dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 shadow-sm p-6">
-        <div className="flex justify-between items-center mb-6">
+      <div className="card-dashboard">
+        <div className="flex justify-between items-center mb-4">
           <div className="flex items-center gap-2">
-            <Target className="text-linkedin" size={24} />
-            <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">Career Vision</h2>
+            <Target className="text-primary" size={20} />
+            <h2 className="dashboard-title">Career Vision</h2>
           </div>
           <div className="flex gap-2">
             <button onClick={handleCancel} className={btnSecondary}>
@@ -132,11 +132,11 @@ const CareerVision = ({ careerVision, profileId, isEditing, onUpdate }) => {
   }
 
   return (
-    <div className="bg-white dark:bg-neutral-800 rounded-lg border border-neutral-200 dark:border-neutral-700 shadow-sm p-6">
-      <div className="flex justify-between items-center mb-6">
+    <div className="card-dashboard">
+      <div className="flex justify-between items-center mb-4">
         <div className="flex items-center gap-2">
-          <Target className="text-linkedin" size={24} />
-          <h2 className="text-xl font-semibold text-neutral-900 dark:text-white">Career Vision</h2>
+          <Target className="text-primary" size={20} />
+          <h2 className="dashboard-title">Career Vision</h2>
         </div>
         {isEditing && (
           <button onClick={() => setIsEditingVision(true)} className={btnSecondary}>
