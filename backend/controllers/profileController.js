@@ -950,7 +950,19 @@ export const profileController = {
         pool.query('SELECT * FROM achievement_unlocks WHERE profile_id = $1 ORDER BY unlocked_at DESC', [profileId]),
         pool.query('SELECT * FROM education WHERE profile_id = $1 ORDER BY start_year DESC NULLS LAST', [profileId]),
         pool.query('SELECT * FROM certificates WHERE profile_id = $1 ORDER BY issue_date DESC NULLS LAST', [profileId]),
-        pool.query('SELECT id, profile_id, role_current as role_current, field_target as target_field, inspiration_text as inspiration, focus_current as current_focus, created_at, updated_at FROM career_vision WHERE profile_id = $1', [profileId]),
+        pool.query(`
+          SELECT id,
+                 profile_id,
+                 current_role,
+                 long_term_aspiration,
+                 target_field,
+                 inspiration,
+                 current_focus,
+                 created_at,
+                 updated_at
+          FROM career_vision
+          WHERE profile_id = $1
+        `, [profileId]),
         pool.query('SELECT * FROM resumes WHERE profile_id = $1 ORDER BY uploaded_at DESC LIMIT 1', [profileId])
       ]);
 
@@ -1034,22 +1046,22 @@ export const profileController = {
 
  async upsertCareerVision(req, res) {
   const profileId = req.params.id;
-  const { role_current, target_field, inspiration, current_focus } = req.body;
+  const { current_role, target_field, inspiration, current_focus } = req.body;
 
   try {
-    const result = await pool.query(
-      `INSERT INTO career_vision 
-       (profile_id, role_current, target_field, inspiration, current_focus)
+    const result = await (
+      `INSERT INTO career_vision
+       (profile_id, current_role, target_field, inspiration, current_focus)
        VALUES ($1, $2, $3, $4, $5)
        ON CONFLICT (profile_id)
        DO UPDATE SET
-         role_current = EXCLUDED.role_current,
+         current_role = EXCLUDED.current_role,
          target_field = EXCLUDED.target_field,
          inspiration = EXCLUDED.inspiration,
          current_focus = EXCLUDED.current_focus,
          updated_at = CURRENT_TIMESTAMP
-       RETURNING id, profile_id, role_current, target_field, inspiration, current_focus, created_at, updated_at`,
-      [profileId, role_current, target_field, inspiration, current_focus]
+       RETURNING *`,
+      [profileId, current_role, target_field, inspiration, current_focus]
     );
     
 
