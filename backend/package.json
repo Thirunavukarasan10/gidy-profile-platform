@@ -1,15 +1,15 @@
 {
   "name": "profile-backend",
   "version": "1.0.0",
-  "description": "Backend API for Profile Project",
-  "main": "server.js",
+  "description": "Backend API for Professional Profile Platform",
+  "main": "src/server.js",
   "type": "module",
-"scripts": {
-  "dev": "nodemon server.js",
-  "init-db": "node initDb.js"
-}
-,
-  "keywords": [],
+  "scripts": {
+    "dev": "nodemon server.js",
+    "start": "node server.js",
+    "init-db": "node initDb.js"
+  },
+  "keywords": ["profile", "portfolio", "api"],
   "author": "",
   "license": "ISC",
   "dependencies": {
