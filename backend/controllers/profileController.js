@@ -1038,18 +1038,19 @@ export const profileController = {
 
   try {
     const result = await pool.query(
-      `INSERT INTO career_vision (profile_id, role_current, field_target, inspiration_text, focus_current)
-       VALUES ($1, $2, $3, $4, $5, $6)
-       ON CONFLICT (profile_id) 
+      `INSERT INTO career_vision 
+       (profile_id, current_role, target_field, inspiration, current_focus)
+       VALUES ($1, $2, $3, $4, $5)
+       ON CONFLICT (profile_id)
        DO UPDATE SET
-         role_current = EXCLUDED.role_current,
-         field_target = EXCLUDED.field_target,
-         inspiration_text = EXCLUDED.inspiration_text,
-         focus_current = EXCLUDED.focus_current,
+         current_role = EXCLUDED.role_current,
+         target_field = EXCLUDED.target_field,
+         inspiration = EXCLUDED.inspiration,
+         current_focus = EXCLUDED.current_focus,
          updated_at = CURRENT_TIMESTAMP
-       RETURNING id, profile_id, role_current as current_role, field_target as target_field, inspiration_text as inspiration, focus_current as current_focus, created_at, updated_at`,
+       RETURNING id, profile_id, current_role, target_field, inspiration, current_focus, created_at, updated_at`,
       [profileId, current_role, target_field, inspiration, current_focus]
-    );
+    );    
 
     await checkAndUnlockAchievements(profileId);
     res.json(result.rows[0]);
