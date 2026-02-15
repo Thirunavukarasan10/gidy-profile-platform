@@ -1,0 +1,6 @@
+index.html
+src/
+vite.config.js
+package.json
+postcss.config.js
+tailwind.config.js
